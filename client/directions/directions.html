@@ -1,18 +1,32 @@
 
-
-
-
 <template name="directions">
+	<!-- <h2 align="center">Directions</h2> -->
 	<div class="semantic ui page grid">
-		<h2 align="center">Directions</h2>
-		<div class="semantic ui padded raised segment">
-			http://pathGoogleMaps
-<!--  			<div class="map-container">
+		<!-- <div class="semantic ui padded raised segment"> -->
+			<div class="ui nine wide column">
+	 			<div id ="map" class="map-container">
+	    			{{> googleMap name="exampleMap" options=exampleMapOptions}}
+	  			</div>
+  				
+			<!-- </div> -->
+		</div>
+	<div class="ui six wide column">
+	<div class="ui row">
 
-    			{{> googleMap name="exampleMap" options=exampleMapOptions}}
-  			</div> -->
-  		</div >
-  	</div>
+		<div class="ui compact segment" id="floating-panel">
+     			 <strong>Mode of Transportation:</strong>
+      				<select id="modeOfTransport">
+			        <option value="walking">walking</option>
+			        <option value="driving">driving</option>
+			        <option value="transit">transit</option>
+			        <option value="bicycling">bicycling</option>
+      				</select>
+      				<br>
+    			</div>
+    	</div>
+    	<div id="right-panel"></div>
+	</div>
+  	</div >
 </template>
 
 

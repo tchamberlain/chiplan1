@@ -91,9 +91,9 @@ Template.actInfo.helpers({
     }
   },
 
-     'click #back': function(){
-        //you either need to go back to seeAll, Dash, or Home
-        //check current route and see where you need to go
+     'click #directions': function(){
+        var address= Session.get('actInfoEvent').address;
+        Router.go('directions',{address:address});
 
     }
 

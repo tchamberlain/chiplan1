@@ -3,10 +3,9 @@
        <div class="computer tablet only row">
             <div class= "twelve wide centered column">
             <div class="ui very padded raised container segment">
-
                 <h3><center>{{chosen_activity.title}}</center></h3> 
                 <ul><b>When:</b> {{get_when}}</ul>
-                <ul><b>Address:</b> {{chosen_activity.address}}</ul>
+                <ul><b>Address:</b> {{chosen_activity.address}}  <div  id="directions" Type="button" class="ui center aligned circular small left labeled icon button"><i class="car icon"></i>Directions</div></ul>
                 <ul><b>Description:</b> {{chosen_activity.description}}</ul>
                  {{#if showAttendance}}
                   <ul align="left" ><b># of People Going:</b> {{chosen_activity.attending}}</ul>
