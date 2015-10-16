@@ -6,20 +6,9 @@ Template.invite_modal.helpers ({
    }
 });
 
-  //tryna check for this on login
-  Accounts.onLogin( function(){
-    //removing events from favorites and from discards that already occurred
-    //get yesterdays date, if the event was before yesterday, pull it
-    yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1); 
-    if(Meteor.user()){
-        user_id=Meteor.user()._id
-       Meteor.users.update({_id: user_id}, {$pull: {'profile.favorites': {start_date: {$lt: yesterday} }}});
-       console.log("pulled?")
-       //Meteor.users.update({_id: user_id}, {$pull: {'profile.discards': {start_date: {$lt: yesterday} }}});
-    }
-   
-
+//fix name modal upon login, also pull old events from user profile
+Accounts.onLogin( function(){
+    //look back at what's going on with this name modal business
     Session.set('name_modal',1)
     if(Session.get('name_modal')){
       if(!Meteor.user().profile.DOB){
@@ -29,6 +18,9 @@ Template.invite_modal.helpers ({
           .modal('show')
     }
   }
+
+  //pull old events from user profile
+    pullOldEventsFromProfile();
   });
 
 
@@ -49,12 +41,27 @@ Template.name_modal.events({
        Meteor.users.update({_id: Meteor.user()._id}, {$set: {
                       'profile.name': full_name,
                       'profile.DOB': DOB,
-                      'profile.hasSwiped':false
+                      'profile.hasSwiped':false,
+                      'profile.favorites': [],
+                      'profile.discard': []
                       }});
         console.log(Meteor.user().profile.name)
         console.log(Meteor.user().profile.DOB)
           }
-
-
 });
+
+
+function pullOldEventsFromProfile(){
+    //get yesterdays date, if the event was before yesterday, pull it
+    yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1); 
+
+    //if there's a user, take the old events off their favorite and discard lists
+    if(Meteor.user()){
+        user_id=Meteor.user()._id
+        Meteor.users.update({_id: user_id}, {$pull: {'profile.favorites': {start_date: {$lt: yesterday} }}});
+        Meteor.users.update({_id: user_id}, {$pull: {'profile.discards': {start_date: {$lt: yesterday} }}});
+    }
+}
+
 

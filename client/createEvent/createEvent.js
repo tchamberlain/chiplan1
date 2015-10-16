@@ -108,23 +108,19 @@ function sendEventToAdmin(template){
     console.log(eventObject);
 
 
-     //the "inviter" is the person who created the event
-    inviter=Meteor.user();
-    invite_activity= eventObject;
+     //the submitter is the person who created the event
+    submitter=Meteor.user();
+    submit_activity= eventObject;
 
-      invite_activity=eventObject;
-     var invitee=Meteor.users.find({'profile.name':"admin admin"}).fetch()[0]
+      submitter_activity=eventObject;
+     var admin=Meteor.users.find({'profile.name':"admin admin"}).fetch()[0]
 
             //Were going to insert an invitation into the db
-      Invitations.insert({
-                     inviteStr:""+inviter._id+invitee._id+invite_activity.title,
-                     activity: invite_activity,
-                     actTitle: invite_activity.title,
-                     inviterName: inviter.profile.name,
-                     inviteeName:invitee.profile.name,
-                     inviterID: inviter._id,
-                     inviteeID:invitee._id,
-                     actID:invite_activity._id,
+      SubmittedEvents.insert({
+                     activity: submit_activity,
+                     actTitle: submit_activity.title,
+                     submitterName: submitter.profile.name,
+                     submitterID: submitter._id,
                      accepted:"unseen"
         });
 }

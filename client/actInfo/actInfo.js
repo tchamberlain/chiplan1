@@ -19,6 +19,8 @@ Template.actInfo.onCreated( function(){
     }
     //default is no buttons
     setButtonsNone();
+    actInfoEvent=Session.get('actInfoEvent');
+    console.log('actInfoEvent', actInfoEvent);
 
     //if this is neither a fav nor a discard, we need to show both buttons
     if((is_favorite(actInfoEvent._id)||is_discard(actInfoEvent._id))==false){
@@ -58,9 +60,7 @@ Template.actInfo.helpers({
           }
           else{
            current_act=Session.get('actInfoEvent');
-
           }
-
           //update buttons
           setButtonsDiscard();
           //update user

@@ -35,6 +35,16 @@ Meteor.publish('getInvitations', function(invitee){
 });
 
 
+Meteor.publish('getSubmittedEvents', function(user){
+      if(Meteor.user.name="admin admin"){
+        return  SubmittedEvents.find({});
+      }
+      else{
+        return;
+      }
+
+        
+});
 
 
 

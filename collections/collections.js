@@ -4,3 +4,4 @@
 Pre_activities = new Mongo.Collection('pre_activities');
 Activities = new Mongo.Collection('activities');
 Invitations = new Mongo.Collection('invitations');
+SubmittedEvents = new Mongo.Collection('submittedEvents');
