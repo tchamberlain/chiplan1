@@ -3,6 +3,10 @@ import os
 import urllib2
 import csv
 
+
+
+
+
 spamWriter = csv.writer(open('parksProgramsEvents.csv', 'wb'))
 #write headerline for csv file
 spamWriter.writerow(["title","start_date_f","end_date_f","address","description","source","tags"])
@@ -43,9 +47,9 @@ def scrapeParks(htmlFile):
 			while(indexCurrentEvent>0):
 				title=getCodeSnippetBetween(fullCode,textReviewed, ">", "<") 
 				description=getCodeSnippetBetween(fullCode,textReviewed, "\" original-title=\"<div style=\'padding-right:30px;min-width:200px;\'>", "</div>\" href=\"javascript:void(0);\"><i class=\"icon-info-sign\"")
-				start_date_f="fake"
-				end_date_f="fake"
+				start_date="fake"
 				address="fake"
+				end_date="fake"
 				source="parksPrograms"
 
 				eventIsFree=fullCode[textReviewed:fullCode.find('<p></p></span></td>')].find("free");
@@ -58,8 +62,16 @@ def scrapeParks(htmlFile):
 				indexCurrentEvent=fullCode.find('class="an-activityName"',textReviewed)
 				textReviewed=indexCurrentEvent +len('class="an-activityName"')
 
-				#write this event to the csv file , but only if it is a teen event
-				spamWriter.writerow([title,start_date_f,end_date_f,address,description,source,"none"])
+				## for each day in month of october november create an event
+				datesToWrite=[];
+
+				#loop through and add a start date for each day necessary
+				getDatesToWrite(dayOfWeek);
+
+				#write these event to the csv file , but only if it is a teen event
+				for(start_date in datesToWrite)
+					spamWriter.writerow([title,start_date,end_date,address,description,source,"none"])
+
 			
 		#go to next page
 		page+=1

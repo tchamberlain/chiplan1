@@ -74,9 +74,14 @@ function set_up_act_list(search_category, search_date, search_dist, user_lng, us
         console.log(tomorrow,"tomorrow");
         console.log(nextDay,"nextDay");
 
+        
+        
+      if (search_category=="stayin"){
+        date_query={tags: { $exists: true } }
+      }
 
       //if tomorrow is checked, get only tom events
-      if (search_date=="tomorrow"){
+      else if (search_date=="tomorrow"){
         //get tomorrows date using today's date, however don't get hours, only day month and year
         tomorrow=new Date(yr,mm,dd);     
         tomorrow.setDate(tomorrow.getDate() + 1); 

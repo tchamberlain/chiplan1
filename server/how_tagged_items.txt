@@ -87,6 +87,7 @@ db.activities.update({description:/.*yoga.*/i, tags:[]}, {$addToSet: {tags: [“
 
 db.activities.update({description:/.*yoga.*/i, tags:[]}, {$addToSet: {tags: "sports"}}, {multi: true })
 
+db.activities.update({title:/.*YOUMedia.*/i, tags:[]}, {$addToSet: {tags: "entertainment"}}, {multi: true })
 
 //putting YouMedia stuff under entertainment, may want to change later.....
 db.activities.update({title:/.*YOUMedia.*/i, tags:[]}, {$addToSet: {tags: "entertainment"}}, {multi: true })
@@ -94,6 +95,8 @@ db.activities.update({title:/.*YOUMedia.*/i, tags:[]}, {$addToSet: {tags: "enter
 //REMOVED farmers market//
 db.activities.remove({title:/.*Farmers Market - Multiple Locations.*/i, tags:[]})
 db.activities.remove({title:/.*Farmers Market.*/i, tags:[]})
+
+ db.activities.update({description:/.*art.*/i, tags:[]}, {$addToSet: {tags: "art"}}, {multi: true })
 
 
 ////////////
