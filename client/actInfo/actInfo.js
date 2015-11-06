@@ -1,3 +1,6 @@
+  //------------------------------------------------------//
+ //------------------ actInfo ROUTES --------------------//
+//------------------------------------------------------//
 Router.route('/actInfo/:_id/:isInvite', {
     name: 'actInfo',
     waitOn: function(){
@@ -8,6 +11,9 @@ Router.route('/actInfo/:_id/:isInvite', {
     }
     });
 
+  //------------------------------------------------------//
+ //------------------ actInfo INITIALIZATION ------------//
+//------------------------------------------------------//
 Template.actInfo.onCreated( function(){
    if(!Session.get('actInfoEvent')){
     var actInfoEvent=Activities.findOne(currentID);
@@ -36,6 +42,9 @@ Template.actInfo.onCreated( function(){
     }
 });
 
+  //------------------------------------------------------//
+ //------------------ actInfo HELPERS -------------------//
+//------------------------------------------------------//
 Template.actInfo.helpers({
    'chosen_activity': function(){
       return Session.get('actInfoEvent');
@@ -47,10 +56,27 @@ Template.actInfo.helpers({
     'showAttendance': function(){
     current_activity=Session.get('actInfoEvent');
     return (current_activity.attending>=5);
+  },
+    'get_when': function(){
+    return get_when(Session.get('actInfoEvent'));
+  },
+  
+  'favorite_button_show':function(){
+    return(Session.get('favorite_button_show'));
+  },
+  'discard_button_show':function(){
+      return(Session.get('discard_button_show'));
+  },
+  'both_buttons_show':function(){
+      return(Session.get('both_buttons_show'));
+
   }
 });
 
 
+  //------------------------------------------------------//
+ //------------------ actInfo EVENTS --------------------//
+//------------------------------------------------------//
   Template.actInfo.events({
     'click #favorite': function(){
         //if there is a user logged in, send them to the share page
@@ -91,33 +117,17 @@ Template.actInfo.helpers({
     }
   },
 
-     'click #directions': function(){
-        var address= Session.get('actInfoEvent').address;
-        Router.go('directions',{address:address});
-
-    }
+ 'click #directions': function(){
+    var address= Session.get('actInfoEvent').address;
+    Router.go('directions',{address:address});
+  }
 
  });
 
-Template.actInfo.helpers({
-  'get_when': function(){
-    return get_when(Session.get('actInfoEvent'));
-  },
-  
-  'favorite_button_show':function(){
-    return(Session.get('favorite_button_show'));
-  },
-  'discard_button_show':function(){
-      return(Session.get('discard_button_show'));
-  },
-  'both_buttons_show':function(){
-      return(Session.get('both_buttons_show'));
 
-  }
-});
-
-
-//functions
+  //------------------------------------------------------//
+ //------------------ actInfo FUNCTIONS -----------------//
+//------------------------------------------------------//
 setButtonsDiscard= function(){
   Session.set('discard_button_show',1);
   Session.set('favorite_button_show',0);
@@ -139,9 +149,6 @@ setButtonsNone= function(){
   Session.set('both_buttons_show',0);
   
 };
-
-
-
 
 Deps.autorun(function(){
     Meteor.subscribe('userData');

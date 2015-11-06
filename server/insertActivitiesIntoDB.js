@@ -4,7 +4,7 @@
 
 
 ///testing function intended to add stay in activities to the database
-function testAdd(){
+testAdd = function (){
   Pre_activities.find().forEach(    
     function (elem) {     
         var tags=["stayin"];

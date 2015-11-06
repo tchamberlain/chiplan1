@@ -1,3 +1,6 @@
+  //------------------------------------------------------//
+ //------------------ dashboard ROUTES ------------------//
+//------------------------------------------------------//
 Router.route('/dashboard',{
    waitOn: function(){
           nullGlobals();
@@ -6,8 +9,11 @@ Router.route('/dashboard',{
   });
 
 
+
+  //------------------------------------------------------//
+ //----------------- dashboard INITIALIZATION -----------//
+//------------------------------------------------------//
 //when the dashboard is created we need to make lists of invites that have been declined /accepted
-//also need to maje a list of facorite events??? why do you do this id stuff
 Template.dashboard.onCreated( function(){ 
   acceptedInvites=[];
   declinedInvites=[];
@@ -21,6 +27,9 @@ Template.dashboard.onCreated( function(){
 
 });
 
+  //------------------------------------------------------//
+ //------------------ dashboard HELPERS -----------------//
+//------------------------------------------------------//
 Template.dashboard.helpers({
     'is_admin':function(){
         return isAdmin();

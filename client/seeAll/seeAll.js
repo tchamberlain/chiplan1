@@ -1,3 +1,6 @@
+  //------------------------------------------------------//
+ //-------------------- seeAll ROUTES -------------------//
+//------------------------------------------------------//
 Router.route('/seeAll/:category/:date/:distance', {
    name: 'seeAll',
     data: function(){
@@ -10,7 +13,12 @@ Router.route('/seeAll/:category/:date/:distance', {
     }
     });
 
+  //-------------------------------------------------------//
+ //--------------- seeAll INITIALIZATION -----------------//
+//-------------------------------------------------------//
+
 Template.seeAll.onCreated( function(){
+    //if at any point there is not a list of activities to show the user, re-populate this list
         if(!Globals.seeAllEventList){
            Globals.seeAllEventList=create_act_list();
           Session.set('activity_list_all',Globals.seeAllEventList);
@@ -34,6 +42,8 @@ Template.seeAll.onCreated( function(){
           unseen_list= get_objects_off_list(activity_list, favorite_ids);
           unseen_list= get_objects_off_list(unseen_list, discard_ids);
 
+          //create reactive variables of the activities, so that the icon will update
+          //as user decides to change the status of the event
           Session.set('unseen_list',unseen_list);
           Session.set('favorite_list',favorite_list);
           Session.set('discard_list',discard_list);
@@ -63,6 +73,7 @@ Template.seeAll.onCreated( function(){
 
 
 Template.seeAll.events({ 
+  //when a user clicks on a given activity title, they will be taken to the actInfo page, to see more info
     'click #activity': function(){
        the_id= this._id;
        if(!Meteor.user()){
@@ -74,7 +85,7 @@ Template.seeAll.events({
        Session.set('actInfoEvent',this);
        Router.go('actInfo',{_id: the_id, isInvite:0} );
     },
-
+      //leads user back to eventsTemp, one at a time events browsing
       'click #back': function(){
          the_id= this._id;
         params=Router.current().params;
@@ -82,8 +93,8 @@ Template.seeAll.events({
 
     },
 
+    //if the user clicks on the heart, it "unhearts it" discarding that event from their favorites, and vice versa 
        'click #icon_label': function(){
-        console.log('you clicked the icon');
         if( Meteor.user()){
           current_act=this;
           act_id=this._id;
@@ -125,28 +136,9 @@ Template.seeAll.events({
 
   });
 
-
-// FUNCTIONS
-get_missing_ids = function(our_list,comp_list){
-  for(i=0;i<our_list; i++){
-    //if this item from our list is in our comparison list, take it out of our list
-    if(comp_list.indexOf(our_list[i])>-1){
-      our_list.splice(i,1);
-    }
-  }
-  return our_list;
-};
-
-get_shared_ids = function(our_list,comp_list){
-  for(i=0;i<our_list; i++){
-    //if this item from our list is NOT in our comparison list, take it out of our list
-    if(comp_list.indexOf(our_list[i])==-1){
-      our_list.splice(i,1);
-    }
-  }
-  return our_list;
-};
-
+  //------------------------------------------------------//
+ //------------------ seeAll FUNCTIONS ------------------//
+//------------------------------------------------------//
 get_objects_off_list = function(our_objs,comp_list){
   new_list=[];
   for(i=0;i<our_objs.length; i++){

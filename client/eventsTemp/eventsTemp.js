@@ -1,7 +1,8 @@
 
-//****************************************************//
-//********************** ROUTES **********************//
-//****************************************************//
+  //------------------------------------------------------//
+ //------------------ eventsTemp ROUTES -----------------//
+//------------------------------------------------------//
+
 Router.route('/events/:category/:date/:distance', {
     name: 'eventsTemp',
     data: function(){return {category:  this.params.category};},
@@ -22,6 +23,10 @@ Router.route('/events/:category/:date/:distance', {
     }
     });
 
+
+  //-------------------------------------------------------//
+ //------------- eventsTemp INITIALIZATION ---------------//
+//-------------------------------------------------------//
 
 Template.eventsTemp.onCreated( function(){
   //check if the user is on a mobile device, set the isMobile global variable
@@ -56,9 +61,10 @@ Template.eventsTemp.onRendered(
       }
   }
 );
-//*****************************************************//
-//********************** HELPERS **********************//
-//*****************************************************//
+
+  //-------------------------------------------------------//
+ //----------------- eventsTemp HELPERS ------------------//
+//-------------------------------------------------------//
 Template.eventsTemp.helpers({
   //gets the remainder of the event description
   'get_rest': function(){
@@ -148,9 +154,10 @@ Template.eventsTemp.helpers({
           return Session.get('currentEvent');
       }
 });
-//********************************************************//
-//********************** EVENTS **************************//
-//********************************************************//
+
+  //-------------------------------------------------------//
+ //----------------- eventsTemp EVENTS- ------------------//
+//-------------------------------------------------------//
 
 Template.eventsTemp.events({
   //toggles the session variable more info, which in turn determines how much of the event info is displayed
@@ -189,10 +196,9 @@ Template.eventsTemp.events({
       }
   });
 
-  //******************************************************//
- //********************** FUNCTIONS *********************//
-//******************************************************//
-
+  //-------------------------------------------------------//
+ //---------------- eventsTemp FUNCTIONS------------------//
+//-------------------------------------------------------//
 function swipeLeft(){
   // get the current activity 
   var currentEvent=Globals.eventList[Globals.eventIndex];

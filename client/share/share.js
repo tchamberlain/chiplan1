@@ -1,3 +1,7 @@
+
+  //------------------------------------------------------//
+ //---------------------- share ROUTES ------------------//
+//------------------------------------------------------//
 Router.route('share/:_id/', {
     name: 'share',
     data: function(){
@@ -17,7 +21,9 @@ Router.route('share/:_id/', {
         }
     });
 
-
+  //------------------------------------------------------//
+ //--------------- share INITIALIZATION -----------------//
+//------------------------------------------------------//
 Template.share.onCreated(function(){
   //subscriptions
     act_id=Router.current().params._id;
@@ -36,6 +42,9 @@ Template.share.onCreated(function(){
    });
 
 
+  //-------------------------------------------------------//
+ //---------------------- share HELPERS ------------------//
+//-------------------------------------------------------//
 Template.share.helpers({
 
   'get_when': function(){
@@ -74,7 +83,9 @@ Template.share.helpers({
    }
 });
 
-
+  //-------------------------------------------------------//
+ //---------------------- share EVENTS -------------------//
+//-------------------------------------------------------//
 Template.share.events = {
 //if they press enter on the form, we save the name they have entered
   'keypress input.inviteForm': function (evt, template) {
@@ -98,7 +109,6 @@ Template.share.events = {
         return query_name;
       }
 
-
     }
   },
 
@@ -121,30 +131,13 @@ Template.share.events = {
         .modal('show');
         return query_name;
       }
-
-    },
-
-//     'call_invite_modal':function(evt, template){
-//       var input_name = invite_modal.find(".inviteForm").value;
-//       //check for name in user DB
-//       query_name= Meteor.users.findOne({'profile.name': input_name})
-
-//       //if this query doesn't exist (this user not in DB), show modal saying so
-//       if(!query_name){
-//         $('.ui.modal.error_modal')
-//         .modal('show');
-//       }
-//       //  otherwise, make modal say invitation sent
-//       else{
-//         Session.set('query_name',query_name)
-//         $('.ui.modal.send_modal')
-//         .modal('show');
-//         return query_name;
-//       }
-
-// }
+    }
 };
 
+
+  //----------------------------------------------------------//
+ //---------------------- share FUNCTIONS -------------------//
+//----------------------------------------------------------//
 function call_invite_modal(evt, template){
       var input_name = invite_modal.find(".inviteForm").value;
       //check for name in user DB
