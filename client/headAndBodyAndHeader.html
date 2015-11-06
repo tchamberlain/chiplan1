@@ -1,0 +1,41 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link href='https://fonts.googleapis.com/css?family=Amaranth:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Martel:400,900|Alegreya+Sans:400,900|Merriweather:400,900,900italic' rel='stylesheet' type='text/css'>  
+</head>
+
+<body>
+  <!-- modal for adding name to user account -->
+  <div class="ui medium modal name_modal">
+    {{>name_modal}}
+ </div>
+
+<!-- script for initializing the facebook login -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1655047711391983',
+      xfbml      : true,
+      version    : 'v2.3'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+</body>
+
+<template name="main">
+  <div id="headerLogo">
+     {{> header}}
+       </div>
+     {{> yield}}
+    <hr/>
+</template>
+
+

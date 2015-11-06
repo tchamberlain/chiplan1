@@ -9,7 +9,7 @@ Router.route('share/:_id/', {
           if(Session.get('shareEvent')){ 
             //you may need to change this so that it searches for user names at the beginning, or, put a loader button for the 
             //user search to check if the subscription worked
-            //return  Meteor.subscribe('get_user_names')  ;
+            return ;
           }
             
           else{
@@ -19,7 +19,6 @@ Router.route('share/:_id/', {
 
 
 Template.share.onCreated(function(){
- 
   //subscriptions
     act_id=Router.current().params._id;
     Meteor.subscribe('event_by_id',act_id);
@@ -80,7 +79,7 @@ Template.share.events = {
 //if they press enter on the form, we save the name they have entered
   'keypress input.inviteForm': function (evt, template) {
     if (evt.which === 13) {
-     //call_invite_modal();
+    call_invite_modal();
 
   var input_name = template.find('.inviteForm').value;
       //check for name in user DB
@@ -123,11 +122,30 @@ Template.share.events = {
         return query_name;
       }
 
-
     },
 
+//     'call_invite_modal':function(evt, template){
+//       var input_name = invite_modal.find(".inviteForm").value;
+//       //check for name in user DB
+//       query_name= Meteor.users.findOne({'profile.name': input_name})
 
-    'call_invite_modal':function(evt, template){
+//       //if this query doesn't exist (this user not in DB), show modal saying so
+//       if(!query_name){
+//         $('.ui.modal.error_modal')
+//         .modal('show');
+//       }
+//       //  otherwise, make modal say invitation sent
+//       else{
+//         Session.set('query_name',query_name)
+//         $('.ui.modal.send_modal')
+//         .modal('show');
+//         return query_name;
+//       }
+
+// }
+};
+
+function call_invite_modal(evt, template){
       var input_name = invite_modal.find(".inviteForm").value;
       //check for name in user DB
       query_name= Meteor.users.findOne({'profile.name': input_name})
@@ -137,57 +155,14 @@ Template.share.events = {
         $('.ui.modal.error_modal')
         .modal('show');
       }
+      //  otherwise, make modal say invitation sent
       else{
         Session.set('query_name',query_name)
         $('.ui.modal.send_modal')
         .modal('show');
         return query_name;
       }
-
 }
-};
-
-
-
-Template.invite_modal.helpers ({
-'get_person': function(){
-      return Session.get('query_name');
-   }
-});
-
-Template.invite_modal.events({
-     
-     'click #invite': function () {
-      invitee= Session.get('query_name');
-      invite_activity= Session.get('shareEvent');
-      inviter= Meteor.user();
-
-      //Were going to insert an invitation into the db
-      Invitations.insert({
-                     inviteStr:""+inviter._id+invitee._id+invite_activity.title,
-                     activity: invite_activity,
-                     actTitle: invite_activity.title,
-                     inviterName: inviter.profile.name,
-                     inviteeName:invitee.profile.name,
-                     inviterID: inviter._id,
-                     inviteeID:invitee._id,
-                     accepted:"unseen"
-        });
-
-    }
-
-});
-
-
-Template.invite_modal.helpers({
-  'get_shareEvent': function () {
-    return Session.get('shareEvent');
-  }
-});
-
-
-
-
 
 
 

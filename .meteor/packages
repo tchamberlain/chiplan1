@@ -19,7 +19,6 @@ ecmascript              # Enable ECMAScript2015+ syntax in app code
 insecure                # Allow all DB writes from clients (for prototyping)
 chriswessels:hammer
 dburles:google-maps
-semantic:ui
 accounts-ui
 iron:router@1.0.9
 semantic:ui-css
@@ -27,3 +26,4 @@ accounts-password
 accounts-facebook
 ejson
 flemay:less-autoprefixer
+semantic:ui

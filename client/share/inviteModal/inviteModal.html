@@ -1,0 +1,17 @@
+
+<template name="invite_modal">
+    <div class="header">
+            <h4>Invite <div class="ui massive label"> <p> <i class="user icon"></i>{{get_person.profile.name}} </p></div>to</h4> 
+            <h3 align="center"><b><p> {{get_current_activity.title}}</p></b></h3>
+    </div>
+    <div class="actions">
+        <div class="ui left labeled gray deny big icon button">
+            Cancel
+            <i class="remove icon"></i>
+        </div>
+        <div id="invite" class="ui positive left labeled big icon button">
+            Send invite
+            <i class="send icon"></i>
+        </div>
+        </div>
+</template>

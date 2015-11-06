@@ -1,0 +1,172 @@
+
+/*tryna make cursor a hand for header*/
+
+.map-container {
+  width: 800px;
+  max-width: 100%;
+  height: 500px;
+}
+
+
+@computerBreakpoint : 10px;
+
+#blur_light {
+	color: transparent;
+   text-shadow: 0 0 0px rgba(0,0,0,0.6);
+}
+
+#blur_heavy {
+	  color: transparent;
+   text-shadow: 0 0 0px rgba(0,0,0,0.2);
+}
+
+#blur_heavier {
+	  color: transparent;
+   text-shadow: 0 1px rgba(0,0,0,0.1);
+}
+
+
+
+
+h1 { cursor: pointer; }
+img { cursor: pointer; }
+#next_event { cursor: pointer; }
+
+
+body {
+	font-family: 'Amaranth', sans-serif;
+  /*font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+  font-size: 16px;
+  font-weight: normal;
+  margin: 3em 0;
+  padding: 0;
+}
+
+
+
+h1 { font-family: Amaranth, Arial, serif; font-weight: 800; color: white; outline: black; }
+
+
+
+/*tryna make different devices have different layouts */
+/*small screen sizes*/
+/*//medium+ screen sizes*/
+@media (min-width:992px) {
+    .desktop-only {
+        display:block !important;
+    }
+}
+ 
+/*//small screen sizes*/
+@media (max-width: 991px) {
+    .mobile-only {
+        display:block !important;
+    }
+ 
+    .desktop-only {
+        display:none !important;
+    }
+}
+/******************************************************/
+
+
+.ul
+{
+	color: transparent;
+	text-shadow: 0 0 5px #000;
+	text-shadow: 0 0 5px #000;
+}
+
+.ul
+{
+	color: #fefff4;
+
+}
+
+.map-container {
+  width: 800px;
+  max-width: 100%;
+  height: 500px;
+}
+
+
+/*tryna put text over image*/
+/*tryna put text over image*/
+/*tryna put text over image*/
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,900);
+
+.module {
+  background: 
+    linear-gradient(
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0)
+    ),
+  background-size: cover;
+  width: 300px;
+  height: 200px;
+  margin: 10px 0 0 10px;
+  position: relative;
+  float: left;
+}
+
+
+img h2{
+
+}
+
+.top h2 {
+  color: white;
+  margin: 0;
+  padding: 20px;
+}
+
+.lr p {
+  font-family: 'Roboto', sans-serif;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  margin: 0;
+}
+
+.mid h2 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  color: white;
+  margin: 2;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 2rem;
+  transform: translate(-50%, -50%);
+}
+
+.cap p {
+  padding: 20px;
+  color: white;
+  font: 12px Monaco, Mono-Space;
+  margin: 0;
+}
+
+/*tryna put text over image*/
+/*tryna put text over image*/
+/*tryna put text over image*/
+
+
+body {
+	/*background-color: #60DCAB;*/
+    background-color: #b0c4de;
+}
+
+#headerLogo {
+    background-color: #00000;
+}
+
+.saturate {-webkit-filter: saturate(3); filter: saturate(3);}
+.grayscale {-webkit-filter: grayscale(100%); filter: grayscale(100%);}
+.contrast {-webkit-filter: contrast(160%); filter: contrast(160%);}
+.brightness {-webkit-filter: brightness(0.25); filter: brightness(0.25);}
+.invert {-webkit-filter: invert(100%); filter: invert(100%);}
+.sepia {-webkit-filter: sepia(100%); filter: sepia(100%);}
+.huerotate {-webkit-filter: hue-rotate(180deg); filter: hue-rotate(180deg);}
+.rss.opacity {-webkit-filter: opacity(50%); filter: opacity(50%);}
