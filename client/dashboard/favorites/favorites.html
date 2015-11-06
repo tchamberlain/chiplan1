@@ -1,0 +1,35 @@
+
+<template name="favorites">
+            <div class="ui page grid">
+            <div class="two wide mobile only column"></div>
+            <div class="ui raised very padded text container segment">
+                  {{#if get_fav_list}}
+                <div class="twelve wide column">
+                   <div class="row"><h2 class="header">Your Events</h2></div>
+                   <div class="ui center aligned divided selection list">
+                        {{#each get_fav_list}} 
+                            <div class="item">
+                                <div class="left floated content">
+                        {{#if get_heart_icon _id}}
+                            <i id="fav_icon" class="green heart icon"></i>
+                        {{else}}
+                            <i class="red remove icon"></i>
+                        {{/if}}
+                    </div>
+                    <div class="right floated content">
+                        <div id="share" class="gray left labeled icon button"><i class="black send icon"></i> Share</div>
+                    </div>
+                <div class="content">
+                    <div id="activity" class="ui header"><h4><div class="ui large label">{{getWhen}} </div><i>{{title}}</i> </h4></div>
+                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+              {{else}}
+                <h2>You have no favorites, add an event!</h2> 
+            {{/if}}
+            </div>
+        </div>
+    
+</template>

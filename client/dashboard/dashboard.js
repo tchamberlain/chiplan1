@@ -8,8 +8,6 @@ Router.route('/dashboard',{
         }
   });
 
-
-
   //------------------------------------------------------//
  //----------------- dashboard INITIALIZATION -----------//
 //------------------------------------------------------//
@@ -36,239 +34,10 @@ Template.dashboard.helpers({
   }
 });
 
-Template.favorites.helpers({
-  'get_fav_list': function(category){
-        if (Meteor.user().profile.favorites.length==0)
-          return false;
-        return Meteor.user().profile.favorites;
-  },
-    'get_heart_icon': function(act_id){
-          user_id=Meteor.user()._id;
-          if(Meteor.users.find({_id:user_id, 'profile.discarding._id':act_id}).count()){
-            return 0;
-          }
-          else{
-            return 1;
-          }
-     },
 
-     'getWhen':function(){
-        return get_when(this);
-     }
-});
-
-Template.favorites.events({
-    //if the user clicks on an activity they can see more info about that activity after being routed to the info page
-    'click #activity': function(){
-         goToActInfo(this);
-    },
-    'click #share': function(){
-      var the_id = this._id;
-      Session.set('shareEvent',this);
-      Router.go('share',{_id: the_id, fromEvents:0,fromYourEvents:1});
-    },
-
-    //clicking the heart button will discard the item, removing it from favorites
-    'click #fav_icon': function(){
-        var act_id = this._id;
-        Meteor.users.update({_id: user_id}, {$addToSet: {'profile.discarding': {_id: act_id}}});
-        var act_id = this._id;
-        //setting time out allows user to see a red 'X' appear to activity prior to it disappearing from the favorites list
-        setTimeout(function() {
-            Meteor.users.update({_id: user_id}, {$pull: {'profile.discarding': {_id: act_id}}});
-            Meteor.users.update({_id: user_id}, {$pull: {'profile.favorites': {_id: act_id}}});
-            Meteor.users.update({_id: user_id}, {$addToSet: {'profile.discards': {_id: act_id}}});
-
-        }, 800);
-
-    }
-});
-
-Template.invitations.helpers({
-        'isMobile':function(){
-            return isMobile;
-    },
-    'getDeclineButtonLabel':function(){
-          if(isMobile){
-            return "";
-        }
-        else{
-            if(Session.get('declinedInvites').indexOf(this._id)>-1){
-                return "Declined";
-            }
-            else{
-                return "Decline";
-            }
-        }
-    },
-    'getAcceptButtonLabel':function(){
-        if(isMobile){
-            return "";
-        }
-        else{
-            if(Session.get('acceptedInvites').indexOf(this._id)>-1){
-                return "Accepted";
-            }
-            else{
-                return "Accept";
-            }
-        }
-    },
-    'getButtonText':function(){
-        if(isMobile){
-            return "tiny icon";
-        }
-        else{
-            return "";
-        }
-    },
-    'getAcceptIcon':function(){
-          if(isMobile){
-            return "inverted check icon";
-        }
-        else{
-            return "";
-        }
-    },
-    'getDeclineIcon':function(){
-       if(isMobile){
-            return "inverted minus icon";
-        }
-        else{
-            return "";
-        }
-    },
-    'isAccepted': function(){
-            console.log("is acceoted",(Session.get('acceptedInvites').indexOf(this._id)>-1));
-            return (Session.get('acceptedInvites').indexOf(this._id)>-1);
-  },
-    'isUnseen': function(){
-          console.log("is unseenInvites",(Session.get('unseenInvites').indexOf(this._id)>-1));
-          return (Session.get('unseenInvites').indexOf(this._id)>-1);
-    },
-    'isDeclined': function(){   
-      console.log(this._id);
-          return(Session.get('declinedInvites').indexOf(this._id)>-1);
-  },
-    'getInvitations':function(){
-        if(Meteor.user()){
-            return Session.get('invitations');
-        }
-    },
-
-});
-
-Template.invitations.events({
-
-    'mouseout #removeIcon': function(event, template){
-        document.getElementById("removeIcon").className = "ui black remove icon";
-
-    },
-    'mouseenter #removeIcon': function(event, template){
-             document.getElementById("removeIcon").className = "ui red remove icon";
-
-    },
-    'click #removeIcon': function(){
-        removeInvite(this._id);
-    },
-    //if the user clicks on an activity they can see more info about that activity after being routed to the info page
-    'click #activity': function(){
-         goToActInfo(this);
-    },
-
-       'click #acceptInvite': function(){
-      /// update accept in invitation object
-      this.accepted=true;
-      acceptedInvites.push(this._id);
-
-      console.log("admin?", isAdmin());
-
-      //if this has been declined prior, this will remove it from the list
-      if(declinedInvites.indexOf(this._id)>-1){
-        declinedInvites.splice(declinedInvites.indexOf(this._id),1); 
-      }
-      else if(unseenInvites.indexOf(this._id)>-1){
-        unseenInvites.splice(unseenInvites.indexOf(this._id),1); 
-      }
-
-       Session.set('declinedInvites',declinedInvites);
-       Session.set('acceptedInvites',acceptedInvites);
-       Session.set('unseenInvites',unseenInvites);
-      Invitations.update({_id:this._id}, {$set:{accepted:true}});
-
-
-      if(isAdmin()){
-          //call insert on the object
-          Activities.insert(this.activity);
-          //call geocode function on the object
-          geocode_update_db(this.activity);
-      }
-
-    },
-        'click #declineInvite': function(){
-      /// update accept in invitation object
-        this.accepted=false;
-     //if this has been declined prior, this will remove it from the list
-      if(acceptedInvites.indexOf(this._id)>-1){
-        acceptedInvites.splice(acceptedInvites.indexOf(this._id),1); 
-      }
-      else if(unseenInvites.indexOf(this._id)>-1){
-        unseenInvites.splice(unseenInvites.indexOf(this._id),1); 
-      }
-
-       declinedInvites.push(this._id);
-
-       Session.set('declinedInvites',declinedInvites);
-       Session.set('acceptedInvites',acceptedInvites);
-       Session.set('unseenInvites',unseenInvites);
-        Invitations.update({_id:this._id}, {$set:{accepted:false}});
-    }
-});
-
-Template.sentInvitations.helpers({
-    'getSentInvitations':function(){
-        if(Meteor.user()){
-            return Session.get('sentInvitations');
-        }
-    },
-    'getIconText':function(){
-        if(this.accepted){
-            return "green inverted check icon";
-        }
-        else{
-            return "black mail outline icon";
-        }
-    }
-});
-Template.sentInvitations.events({
-  'mouseout #removeIconSent': function(event, template){
-        document.getElementById("removeIconSent").className = "ui black remove icon";
-
-    },
-    'mouseenter #removeIconSent': function(event, template){
-        document.getElementById("removeIconSent").className = "ui red remove icon";
-
-    },
-    'click #removeIconSent': function(){
-        console.log("you clieck remove", this._id);
-        removeInvite(this._id);
-    },
-    //if the user clicks on an activity they can see more info about that activity after being routed to the info page
-    'click #activity': function(){
-         goToActInfo(this);
-    }
-});
-
-Template.submittedEvents.helpers({
-    'getSubmittedEvents':function(){
-        if(Meteor.user()){
-            return Session.get('invitations');
-        }
-      }
-
-});
-
-
+  //------------------------------------------------------//
+ //--------------- dashboard FUNCTIONS ------------------//
+//------------------------------------------------------//
 
 goToActInfo=function(act){
    var the_id = act._id;
@@ -345,10 +114,10 @@ function removeInvite(inviteID){
         unseenInvites.splice(unseenInvites.indexOf(inviteID),1); 
         sentInvitations.splice(sentInvitations.indexOf(inviteID),1);
         invitations.splice(invitations.indexOf(inviteID),1);
-      Session.set('declinedInvites',declinedInvites);
-      Session.set('acceptedInvites',acceptedInvites);
-      Session.set('unseenInvites',unseenInvites);
-    Session.set("sentInvitations",sentInvitations);
-    Session.set("invitations",invitations);
+        Session.set('declinedInvites',declinedInvites);
+        Session.set('acceptedInvites',acceptedInvites);
+        Session.set('unseenInvites',unseenInvites);
+        Session.set("sentInvitations",sentInvitations);
+        Session.set("invitations",invitations);
 
 }

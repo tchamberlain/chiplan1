@@ -1,0 +1,25 @@
+
+<template name="sentInvitations">
+    {{#if getSentInvitations}}
+        <div class="ui grid">
+            <div class="ui two wide mobile only column"></div>
+            <div class="ui raised very padded text container segment">
+                <div class="ui sixteen wide column">
+                    <h2 class="header">Sent Invitations</h2>
+                    <div class="ui center aligned divided selection list">
+                        {{#each getSentInvitations}} 
+                            <div class="item">
+                                <div class="left floated content">
+                                    <i class="{{getIconText}}"></i>                
+                                </div>
+                                 <div class="content">
+                                    <div id="activity" class="header"><h4> You invited <div class="ui large black label">{{inviteeName}}</div> to <i>{{actTitle}}</i></h4></div>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+</template>
