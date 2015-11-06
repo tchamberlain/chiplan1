@@ -1,9 +1,10 @@
+ //*************************
+//PUBLICATIONS (data that will be pushed from server to client when asked for)
+//*************************
+
 //publish only events from a given query
 Meteor.publish('events_query', function(query_parameters){
-    
-  //set up act list
-  console.log("user_loc?", query_parameters[3],query_parameters[4]);
-  
+    //set up activity list  
     return set_up_act_list(query_parameters[0],query_parameters[1],query_parameters[2],query_parameters[3],query_parameters[4]);
 
 });
@@ -47,8 +48,8 @@ Meteor.publish('getSubmittedEvents', function(user){
 });
 
 
-
-function set_up_act_list(search_category, search_date, search_dist, user_lng, user_lat){
+//server side search of the whole activities database to find only the events fitting user's criteria
+function set_up_act_list(search_category, search_date, search_dist){
    //we gonna set up the act list
       console.log("setting up act list")
       activity_index=0;
@@ -74,7 +75,6 @@ function set_up_act_list(search_category, search_date, search_dist, user_lng, us
         console.log(tomorrow,"tomorrow");
         console.log(nextDay,"nextDay");
 
-        
         
       if (search_category=="stayin"){
         date_query={tags: { $exists: true } }
@@ -142,7 +142,6 @@ function set_up_act_list(search_category, search_date, search_dist, user_lng, us
       else{
         var category_query={tags: [category]};
       }
-
 
       var final_query= Activities.find({$and:[ date_query, category_query]})
       var total= final_query.count();

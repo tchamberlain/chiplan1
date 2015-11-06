@@ -1,22 +1,16 @@
 //meteor methods
 
-
-//adds an invite to a user's profile
-
-
 Meteor.methods({
+    //adds an invite to a user's profile
     'sendInvite': function(inviter,invitee,activity){
         var invite= {};
         invite.invitee=invitee;
         invite.inviter=inviter;
         invite.activity=activity;
-        console.log('weve entered send invite');
 
-        //add invite to inviter's profile
-        //if they do not have a sent invitations list, add it
+        //if the inviter does not have a sent invitations list, add one
         if(!inviter.profile.sentInvitations){
-        	console.log('did ya make it into sentInvitations',inviter._id, invitee._id);
-        	//update this user
+        	//update this user, adding the invite to inviter's profile
         	Meteor.users.update({_id: inviter._id}, {$set: {'profile.sentInvitations': [invite]}});
         }
         else{
@@ -27,15 +21,39 @@ Meteor.methods({
         if(!invitee.profile.invitations||invitee.profile.invitations.length==0){
         	//update this user
         	Meteor.users.update({_id: invitee._id}, {$set: {'profile.invitations': [invite]}});
-        	 // console.log('inside first if..?',invitee.profile);
-        	 //  console.log('inside first if..?',invitee);
-
         }
         else{
         	Meteor.users.update({_id: invitee._id}, {$addToSet: {'profile.invitations': invite}});
         }
+    },
+    
 
-        //console.log('invitee profile',invitee.profile.invitations);
+    //allows admin to accept events that users have submitted, meaning those events will be added to the database for everyone to see
+     'acceptEvent': function(newEvent){
+        
+        //note, you are not geocoding user submitted events, which you may want to change in the future
+        lat=0;
+        lng=0;
 
+        Activities.insert({
+            title: newEvent.title,
+            start_time: newEvent.start_time,
+            end_time: newEvent.end_time,
+            start_date: newEvent.start_date,
+            end_date: newEvent.end_date,
+            address: newEvent.address,
+            description: newEvent.description,
+            tags: newEvent.tags,
+            source: "userInput",
+            location: {
+                "type" : "Point",
+                "coordinates" : [ 
+                  lng, 
+                  lat
+                ]
+                }
+        })
+
+        console.log("Hello world, you've accepted this event!!! goooo job");
     }
 });

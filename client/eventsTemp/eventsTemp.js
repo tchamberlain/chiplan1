@@ -88,7 +88,7 @@ Template.eventsTemp.helpers({
   'get_when': function(){
     return get_when(Session.get('currentEvent'));
   },
-  //CHANGE TO FIVE SOON
+
   //determines whether or not attendence num will be displayed (if over five people are going)
   'showAttendance': function(){
     current_activity=Session.get('currentEvent');
@@ -99,7 +99,6 @@ Template.eventsTemp.helpers({
     num_lines=split_description().length;
     return (num_lines<=3);
   },
-
   //show only part of the event's address, if the address is too long
  'get_where': function(){
     where=Session.get('currentEvent').address;
@@ -154,6 +153,7 @@ Template.eventsTemp.helpers({
 //********************************************************//
 
 Template.eventsTemp.events({
+  //toggles the session variable more info, which in turn determines how much of the event info is displayed
     'click #more_info':function(){
       Session.set('more_info',1);
     },
@@ -272,8 +272,6 @@ create_act_list= function(){
     //getting all of the activities, returns an array of events within the user specified distance
       activity_list=distance_query();
     
-    
-
     //for_see_all will be true if seeAll is contained in the path
     var routeName = Router.current().route.getName();
     for_see_all= routeName.indexOf("seeAll")>-1;
@@ -466,13 +464,8 @@ get_when= function(activity){
     return when;
   }
 
-
-
-
 //checks whether or not user is on a mobile device
 isOnMobile = function(){
-    // check if user is on mobile device, so that the description can be made diff. lengths for mobile and for desktop
-    //initiate as false
     isMobile = false; 
     // device detection
     if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) 
