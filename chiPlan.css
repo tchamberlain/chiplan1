@@ -34,7 +34,7 @@ img { cursor: pointer; }
 
 
 body {
-	font-family: 'Amaranth', sans-serif;
+	font-family: 'Roboto', sans-serif;
   /*font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
   font-size: 16px;
   font-weight: normal;
@@ -44,7 +44,7 @@ body {
 
 
 
-h1 { font-family: Amaranth, Arial, serif; font-weight: 800; color: white; outline: black; }
+h1 { font-family: Roboto, Arial, serif; font-weight: 800; color: white; outline: black; }
 
 
 
@@ -93,7 +93,7 @@ h1 { font-family: Amaranth, Arial, serif; font-weight: 800; color: white; outlin
 /*tryna put text over image*/
 /*tryna put text over image*/
 /*tryna put text over image*/
-@import url(http://fonts.googleapis.com/css?family=Roboto:400,900);
+@import url(http://fonts.googleapis.com/css?family=Merriweather:400,900);
 
 .module {
   background: 
@@ -170,3 +170,16 @@ body {
 .sepia {-webkit-filter: sepia(100%); filter: sepia(100%);}
 .huerotate {-webkit-filter: hue-rotate(180deg); filter: hue-rotate(180deg);}
 .rss.opacity {-webkit-filter: opacity(50%); filter: opacity(50%);}
+
+
+body {
+  /*font-family: 'Times', sans-serif;*/
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: normal;
+  margin: 3em 0;
+  padding: 0;
+}
+
+
+
